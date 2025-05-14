@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Incident } from '../models/incident.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  // Creamos un BehaviorSubject para los incidentes
-  private incidentesSubject = new BehaviorSubject<Incident[]>([
+  private incidentes: Incident[] = [
     {
       id: 1,
       tipo: 'Red',
@@ -28,20 +27,19 @@ export class TaskService {
       prioridad: 'Media',
       responsable: 'Ana Torres'
     }
-  ]);
+  ];
 
-  // Getter para obtener los incidentes como un observable
-  getIncidentes() {
+  private incidentesSubject = new BehaviorSubject<Incident[]>(this.incidentes);
+
+  getIncidentes(): Observable<Incident[]> {
     return this.incidentesSubject.asObservable();
   }
 
-  // Método para agregar un nuevo incidente
-  agregarIncidente(nuevoIncidente: Incident) {
-    // Obtener la lista actual de incidentes
-    const incidentesActualizados = [...this.incidentesSubject.value, nuevoIncidente];
-    
-    // Actualizar el BehaviorSubject con la nueva lista
-    this.incidentesSubject.next(incidentesActualizados);
+  agregarIncidente(nuevo: Incident): void {
+    nuevo.id = this.incidentes.length + 1;
+    this.incidentes.push(nuevo);
+    this.incidentesSubject.next(this.incidentes); // notifica el cambio
   }
 }
+
 

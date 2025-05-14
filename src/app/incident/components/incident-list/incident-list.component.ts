@@ -22,16 +22,15 @@ export class IncidentListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse a los cambios de incidentes
-    this.incidentesSubscription = this.taskService.getIncidentes().subscribe(
-      (incidentes: Incident[]) => {
-        this.incidentes = incidentes;
-      },
-      (error) => {
-        this.mostrarError('Error al cargar los incidentes.');
-      }
-    );
-  }
+  this.taskService.getIncidentes().subscribe({
+    next: (datos) => {
+      this.incidentes = datos;
+    },
+    error: () => {
+      this.mostrarError('Error al cargar los incidentes.');
+    }
+  });
+}
 
   ngOnDestroy(): void {
     // Cancelar la suscripción al destruir el componente

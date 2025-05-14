@@ -38,7 +38,6 @@
     h1 {
       font-size: 3rem;
       background: var(--gradiente);
-      -webkit-background-clip: text;
       color: transparent;
       margin-bottom: 1rem;
     }
@@ -66,10 +65,12 @@
 </head>
 <body>
   <main>
-    <app-incident-form></app-incident-form>
-    <h1>Bienvenido a Mi Página</h1>
-    <p>Esta es una página de ejemplo con un estilo moderno y limpio.</p>
-    <button class="boton">Haz clic aquí</button>
+<h1>Gestión de Incidentes</h1>
+
+<app-incident-form></app-incident-form>
+<hr />
+<app-incident-list></app-incident-list>
+  <button class="boton">Haz clic aquí</button>
   </main>
 </body>
 </html>
