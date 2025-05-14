@@ -1,0 +1,40 @@
+<h2 style="text-align: center;">Registrar Incidente</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Tipo</mat-label>
+    <input matInput formControlName="tipo" placeholder="Tipo de incidente" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Área</mat-label>
+    <input matInput formControlName="area" placeholder="Área responsable" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="descripcion" placeholder="Describe el incidente"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Prioridad</mat-label>
+    <mat-select formControlName="prioridad">
+      <mat-option value="Alta">Alta</mat-option>
+      <mat-option value="Media">Media</mat-option>
+      <mat-option value="Baja">Baja</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Responsable</mat-label>
+    <input matInput formControlName="responsable" placeholder="Responsable asignado" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Registrar incidente
+  </button>
+
+</form>
+
+

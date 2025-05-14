@@ -1,0 +1,27 @@
+<h2>Lista de Incidentes</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Área</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Fecha Creación</th>
+      <th>Prioridad</th>
+      <th>Responsable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let incidente of incidentes">
+      <td>{{ incidente.tipo }}</td>
+      <td>{{ incidente.area }}</td>
+      <td>{{ incidente.descripcion }}</td>
+      <td>{{ incidente.estado }}</td>
+      <td>{{ incidente.fechaCreacion | date: 'short' }}</td>
+      <td>{{ incidente.prioridad }}</td>
+      <td>{{ incidente.responsable }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
