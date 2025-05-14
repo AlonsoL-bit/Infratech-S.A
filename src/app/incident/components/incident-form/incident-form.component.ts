@@ -36,21 +36,17 @@ export class IncidentFormComponent implements OnInit {
   if (this.form.valid) {
     const nuevoIncidente = {
       ...this.form.value,
-      fechaCreacion: new Date() // Agregar la fecha de creación
+      fechaCreacion: new Date() 
     };
 
-    // Llamar al servicio para agregar el nuevo incidente
     this.taskService.agregarIncidente(nuevoIncidente);
 
-    // Mensaje de éxito
     this.snackBar.open('Incidente registrado correctamente', 'Cerrar', {
       duration: 3000
     });
 
-    // Limpiar el formulario
     this.form.reset();
   } else {
-    // Mensaje de error si el formulario no es válido
     this.snackBar.open('Formulario inválido. Revisa los campos.', 'Cerrar', {
       duration: 3000
     });

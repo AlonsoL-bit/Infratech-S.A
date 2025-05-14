@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Incident } from '../../../core/models/incident.model';
 import { TaskService } from '../../../core/services/task.service';
 import { CommonModule } from '@angular/common';
@@ -11,8 +12,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./incident-list.component.css'],
   imports: [CommonModule, MatSnackBarModule]
 })
-export class IncidentListComponent implements OnInit {
+export class IncidentListComponent implements OnInit, OnDestroy {
   incidentes: Incident[] = [];
+  private incidentesSubscription: Subscription = new Subscription();
 
   constructor(
     private taskService: TaskService,
@@ -20,11 +22,20 @@ export class IncidentListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    try {
-      this.incidentes = this.taskService.getIncidentes();
-    } catch (error) {
-      this.mostrarError('Error al cargar los incidentes.');
-    }
+    // Suscribirse a los cambios de incidentes
+    this.incidentesSubscription = this.taskService.getIncidentes().subscribe(
+      (incidentes: Incident[]) => {
+        this.incidentes = incidentes;
+      },
+      (error) => {
+        this.mostrarError('Error al cargar los incidentes.');
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    // Cancelar la suscripción al destruir el componente
+    this.incidentesSubscription.unsubscribe();
   }
 
   mostrarError(mensaje: string): void {
@@ -33,5 +44,6 @@ export class IncidentListComponent implements OnInit {
     });
   }
 }
+
 
 
