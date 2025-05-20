@@ -15,7 +15,8 @@ export class TaskService {
       estado: 'Nuevo',
       fechaCreacion: new Date('2025-05-10T10:00:00'),
       prioridad: 'Alta',
-      responsable: 'Juan Pérez'
+      responsable: 'Juan Pérez',
+      tecnico: 'Carlos López'
     },
     {
       id: 2,
@@ -25,7 +26,8 @@ export class TaskService {
       estado: 'En Proceso',
       fechaCreacion: new Date('2025-05-09T09:30:00'),
       prioridad: 'Media',
-      responsable: 'Ana Torres'
+      responsable: 'Ana Torres',
+      tecnico: 'Laura Gómez'
     }
   ];
 
@@ -40,6 +42,16 @@ export class TaskService {
     this.incidentes.push(nuevo);
     this.incidentesSubject.next(this.incidentes); // notifica el cambio
   }
+  actualizarEstado(id: number, nuevoEstado: "Nuevo" | "En Proceso" | "Resuelto"): void {
+  const incidente = this.incidentes.find(i => i.id === id);
+  if (incidente) {
+    incidente.estado = nuevoEstado;
+    incidente.fechaActualizacion = new Date();
+    this.incidentesSubject.next([...this.incidentes]); // forzar update
+  }
 }
+
+}
+
 
 

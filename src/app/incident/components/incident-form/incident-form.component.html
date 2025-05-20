@@ -31,10 +31,22 @@
     <input matInput formControlName="responsable" placeholder="Responsable asignado" />
   </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <mat-label>Técnico Asignado</mat-label>
+    <mat-select formControlName="tecnico">
+      <mat-option *ngFor="let tecnico of tecnicos" [value]="tecnico">
+        {{ tecnico }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
   <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
     Registrar incidente
   </button>
 
 </form>
+
+
+
 
 

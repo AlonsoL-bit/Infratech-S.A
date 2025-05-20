@@ -1,77 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Página Bonita</title>
-  <style>
-    :root {
-      --color-principal: oklch(51.01% 0.274 263.83);
-      --color-secundario: oklch(69.02% 0.277 332.77);
-      --color-fondo: oklch(98% 0 0);
-      --color-texto: oklch(19.37% 0.006 300.98);
-      --gradiente: linear-gradient(90deg, var(--color-principal), var(--color-secundario));
-      font-family: "Inter", sans-serif;
-    }
+<mat-toolbar color="primary">
+  <span>Sistema de Gestión de Incidentes</span>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <span class="spacer"></span>
 
-    body {
-      background: var(--color-fondo);
-      color: var(--color-texto);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
-    }
+  <button mat-button routerLink="/registrar">Registrar Incidente</button>
+  <button mat-button routerLink="/incident">Lista de Incidentes</button>
+  <button mat-button routerLink="/dashboard">Estadísticas</button>
+</mat-toolbar>
 
-    main {
-      text-align: center;
-      max-width: 600px;
-    }
-
-    h1 {
-      font-size: 3rem;
-      background: var(--gradiente);
-      color: transparent;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .boton {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 2rem;
-      background-color: var(--color-principal);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .boton:hover {
-      background-color: var(--color-secundario);
-    }
-  </style>
-</head>
-<body>
-  <main>
-<h1>Gestión de Incidentes</h1>
-
-<app-incident-form></app-incident-form>
-<hr />
-<app-incident-list></app-incident-list>
-  <button class="boton">Haz clic aquí</button>
-  </main>
-</body>
-</html>
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>
 

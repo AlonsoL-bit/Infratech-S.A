@@ -1,27 +1,103 @@
 <h2>Lista de Incidentes</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Área</th>
-      <th>Descripción</th>
-      <th>Estado</th>
-      <th>Fecha Creación</th>
-      <th>Prioridad</th>
-      <th>Responsable</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let incidente of incidentes">
-      <td>{{ incidente.tipo }}</td>
-      <td>{{ incidente.area }}</td>
-      <td>{{ incidente.descripcion }}</td>
-      <td>{{ incidente.estado }}</td>
-      <td>{{ incidente.fechaCreacion | date: 'short' }}</td>
-      <td>{{ incidente.prioridad }}</td>
-      <td>{{ incidente.responsable }}</td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="filtros-container">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo</mat-label>
+    <mat-select [(value)]="filtroTipo" (selectionChange)="aplicarFiltros()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option *ngFor="let tipo of tiposDisponibles" [value]="tipo">{{ tipo }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <mat-select [(value)]="filtroEstado" (selectionChange)="aplicarFiltros()">
+      <mat-option value="">Todos</mat-option>
+      <mat-option value="Nuevo">Nuevo</mat-option>
+      <mat-option value="En Proceso">En Proceso</mat-option>
+      <mat-option value="Resuelto">Resuelto</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Prioridad</mat-label>
+    <mat-select [(value)]="filtroPrioridad" (selectionChange)="aplicarFiltros()">
+      <mat-option value="">Todas</mat-option>
+      <mat-option value="Alta">Alta</mat-option>
+      <mat-option value="Media">Media</mat-option>
+      <mat-option value="Baja">Baja</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Área</mat-label>
+    <mat-select [(value)]="filtroArea" (selectionChange)="aplicarFiltros()">
+      <mat-option value="">Todas</mat-option>
+      <mat-option *ngFor="let area of obtenerAreasUnicas()" [value]="area">{{ area }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Desde</mat-label>
+    <input matInput [matDatepicker]="picker1" [(ngModel)]="fechaDesde" (dateChange)="aplicarFiltros()" />
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Hasta</mat-label>
+    <input matInput [matDatepicker]="picker2" [(ngModel)]="fechaHasta" (dateChange)="aplicarFiltros()" />
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+</div>
+
+<div class="incident-list">
+  <mat-card *ngFor="let incidente of incidentesFiltrados" class="incident-card">
+    <mat-card-title>
+      {{ incidente.tipo }} — {{ incidente.area }}
+    </mat-card-title>
+
+    <mat-card-content>
+      <p><strong>Descripción:</strong> {{ incidente.descripcion }}</p>
+      <p><strong>Responsable:</strong> {{ incidente.responsable }}</p>
+      <p><strong>Técnico:</strong> {{ incidente.tecnico }}</p>
+      <p><strong>Creado:</strong> {{ incidente.fechaCreacion | date:'short' }}</p>
+
+      <mat-form-field appearance="fill" class="estado-select">
+        <mat-label>Estado</mat-label>
+        <mat-select [value]="incidente.estado" (selectionChange)="cambiarEstado(incidente.id, $event.value)">
+          <mat-option value="Nuevo">Nuevo</mat-option>
+          <mat-option value="En Proceso">En Proceso</mat-option>
+          <mat-option value="Resuelto">Resuelto</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="chips">
+        <mat-chip [color]="getPrioridadColor(incidente.prioridad)" selected>
+          {{ incidente.prioridad }}
+        </mat-chip>
+
+        <mat-chip [color]="getEstadoColor(incidente.estado)" selected>
+          {{ incidente.estado }}
+        </mat-chip>
+        
+        <mat-chip *ngIf="esAntiguoNoResuelto(incidente)" color="warn" selected>
+          ⚠️ +48h sin resolver
+        </mat-chip>
+
+      </div>
+      <p *ngIf="incidente.fechaActualizacion">
+        <strong>Actualizado:</strong> {{ incidente.fechaActualizacion | date:'short' }}
+      </p>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+
 
 

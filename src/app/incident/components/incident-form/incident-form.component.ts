@@ -28,9 +28,12 @@ export class IncidentFormComponent implements OnInit {
       descripcion: ['', [Validators.required, Validators.minLength(10)]],
       estado: ['Nuevo'],
       prioridad: ['', Validators.required],
-      responsable: ['', Validators.required]
+      responsable: ['', Validators.required],
+      tecnico: ['', Validators.required]
     });
   }
+  tecnicos: string[] = ['Juan Pérez', 'Ana Gómez', 'Luis Torres'];
+
 
   onSubmit(): void {
   if (this.form.valid) {

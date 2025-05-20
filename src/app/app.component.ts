@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { IncidentFormComponent } from "./incident/components/incident-form/incident-form.component";
-import { IncidentListComponent } from "./incident/components/incident-list/incident-list.component";
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [IncidentFormComponent, IncidentListComponent],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'infratech-frontend';
+  mostrarLista = false;
+
+  toggleLista() {
+    this.mostrarLista = !this.mostrarLista;
+    }
 }

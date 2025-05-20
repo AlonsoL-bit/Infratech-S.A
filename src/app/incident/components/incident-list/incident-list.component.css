@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  padding: 1rem;
+  background: none;
+}
+
+/* Título centrado y más grande */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+.filtros-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Lista vertical, ligeramente más ancha */
+.incident-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 950px;     /* un poco más ancho */
+  margin: 0 auto;
+}
+
+/* Cada tarjeta en fila, un poco más alta y ancha */
+.incident-card {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  padding: 18px 24px !important;           /* algo más de padding */
+  margin: 0 !important;
+  background: rgba(255,255,255,0.3) !important;
+  color: #000 !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+  border-radius: 0 !important;
+  font-size: 1.1rem;
+  min-height: 100px !important;             /* un poco más de alto */
+}
+
+/* El título (tipo - área) ocupa más espacio */
+mat-card-title {
+  flex: 2;
+  font-weight: 600;
+  font-size: 1.3rem;                        /* ligeramente más grande */
+  margin: 0;
+}
+
+/* Contenido descriptivo en fila, campos uno al lado de otro */
+mat-card-content {
+  flex: 4;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;                                /* un poco más de espacio */
+  font-size: 1.05rem;                       /* descripción más grande */
+  align-items: flex-start;
+}
+
+/* Cada párrafo ocupa su espacio y evita el recorte */
+mat-card-content p {
+  margin: 0;
+  flex: 1;
+  white-space: normal;                      /* deja que fluya el texto */
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Chips alineadas a la derecha y con texto negro */
+.chips {
+  flex: 2;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+/* Chips con fondo negro-azulado, borde negro delgado y texto blanco */
+.chips mat-chip {
+  background-color: #0d1b2a !important;  /* azul muy oscuro / negro azulado */
+  border: 1px solid #000 !important;     /* borde negro fino */
+  color: #fff !important;                /* texto blanco */
+  font-size: 1rem;                       /* tamaño legible */
+}
+mat-chip[color="warn"] {
+  font-weight: bold;
+  animation: parpadeo 1.5s infinite;
+}
+
+@keyframes parpadeo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+
+

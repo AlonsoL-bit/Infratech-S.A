@@ -1,4 +1,5 @@
 export class Incident {
+[x: string]: any;
     
 }
 
@@ -12,5 +13,7 @@ export interface Incident {
     fechaResolucion?: Date;
     prioridad: 'Alta' | 'Media' | 'Baja';
     responsable: string;
+    tecnico: string;
+    fechaActualizacion?: Date;
   }
   
