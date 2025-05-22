@@ -93,6 +93,10 @@
         <strong>Actualizado:</strong> {{ incidente.fechaActualizacion | date:'short' }}
       </p>
 
+      <p *ngIf="incidente.estado === 'Resuelto' && calcularTiempoResolucion(incidente)">
+        <strong>Tiempo de resolución:</strong> {{ calcularTiempoResolucion(incidente) }}
+      </p>
+
     </mat-card-content>
   </mat-card>
 </div>

@@ -30,7 +30,7 @@ export class IncidentListComponent implements OnInit, OnDestroy {
   fechaDesde: Date | null = null;
   fechaHasta: Date | null = null;
   incidentesFiltrados: Incident[] = [];
-  tiposDisponibles: string[] = ['Red', 'Software', 'Hardware'];
+  tiposDisponibles: string[] = [];
 
   private incidentesSubscription: Subscription = new Subscription();
 
@@ -47,6 +47,7 @@ export class IncidentListComponent implements OnInit, OnDestroy {
   this.taskService.getIncidentes().subscribe({
     next: (datos) => {
       this.incidentes = datos;
+      this.actualizarTiposDisponibles();
       this.aplicarFiltros();
     },
     error: () => {
@@ -83,6 +84,16 @@ getEstadoColor(estado: string): 'primary' | 'accent' | 'warn' {
     });
   }
 
+  actualizarTiposDisponibles(): void {
+  const tiposSet = new Set<string>();
+  this.incidentes.forEach(inc => {
+    if (inc.tipo && inc.tipo.trim() !== '') {
+      tiposSet.add(inc.tipo);
+    }
+  });
+  this.tiposDisponibles = Array.from(tiposSet).sort();
+}
+
   aplicarFiltros(): void {
   this.incidentesFiltrados = this.incidentes.filter(incidente =>
     (this.filtroTipo === '' || incidente.tipo === this.filtroTipo) &&
@@ -108,6 +119,24 @@ esAntiguoNoResuelto(incidente: Incident): boolean {
 
   return horasDiferencia > 48;
 }
+
+calcularTiempoResolucion(incidente: Incident): string | null {
+  if (incidente.estado !== 'Resuelto' || !incidente.fechaActualizacion) {
+    return null;
+  }
+
+  const fechaInicio = new Date(incidente.fechaCreacion).getTime();
+  const fechaFin = new Date(incidente.fechaActualizacion).getTime();
+  const diferenciaMs = fechaFin - fechaInicio;
+
+  const horas = Math.floor(diferenciaMs / (1000 * 60 * 60));
+  const dias = Math.floor(horas / 24);
+
+  return dias > 0
+    ? `${dias} día(s) y ${horas % 24} hora(s)`
+    : `${horas} hora(s)`;
+}
+
 
 
 }
