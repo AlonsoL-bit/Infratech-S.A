@@ -1,1 +1,40 @@
-<p>incident-form works!</p>
+<div class="form-container">
+  <h2>Registrar Incidente</h2>
+
+  <form (ngSubmit)="registrarIncidente()" #form="ngForm">
+    <label>
+      Tipo:
+      <input type="text" [(ngModel)]="nuevoIncidente.tipo" name="tipo" required />
+    </label>
+
+    <label>
+      Área:
+      <input type="text" [(ngModel)]="nuevoIncidente.area" name="area" required />
+    </label>
+
+    <label>
+      Descripción:
+      <textarea [(ngModel)]="nuevoIncidente.descripcion" name="descripcion" required></textarea>
+    </label>
+
+    <label>
+      Estado:
+      <select [(ngModel)]="nuevoIncidente.estado" name="estado" required>
+        <option value="Nuevo">Nuevo</option>
+        <option value="En proceso">En proceso</option>
+        <option value="Resuelto">Resuelto</option>
+      </select>
+    </label>
+
+    <label>
+      Prioridad:
+      <select [(ngModel)]="nuevoIncidente.prioridad" name="prioridad" required>
+        <option value="Alta">Alta</option>
+        <option value="Media">Media</option>
+        <option value="Baja">Baja</option>
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="form.invalid">Registrar</button>
+  </form>
+</div>

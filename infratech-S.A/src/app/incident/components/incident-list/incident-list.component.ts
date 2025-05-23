@@ -15,6 +15,9 @@ export class IncidentListComponent implements OnInit {
   constructor(private incidentService: IncidentService) {}
 
   ngOnInit(): void {
-    this.incidentes = this.incidentService.getIncidentes();
+    this.incidentService.incidentes$.subscribe(data => {
+    this.incidentes = data;
+  });
+
   }
 }

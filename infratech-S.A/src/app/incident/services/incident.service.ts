@@ -3,10 +3,11 @@ import { BehaviorSubject } from 'rxjs';
 
 export interface Incidente {
   tipo: string;
+  area: string;
   descripcion: string;
   estado: string;
-  fecha: string;
   prioridad: string;
+  fecha: string;
 }
 
 @Injectable({
@@ -16,46 +17,34 @@ export class IncidentService {
   private incidentesSubject = new BehaviorSubject<Incidente[]>([
     {
       tipo: 'Red',
+      area: 'TI',
       descripcion: 'Sin acceso a internet',
       estado: 'Nuevo',
-      fecha: '2025-05-23',
       prioridad: 'Alta',
+      fecha: '2025-05-23',
     },
     {
       tipo: 'Software',
+      area: 'Contabilidad',
       descripcion: 'Error al abrir aplicación contable',
       estado: 'En proceso',
-      fecha: '2025-05-22',
       prioridad: 'Media',
+      fecha: '2025-05-22',
     },
     {
       tipo: 'Hardware',
+      area: 'Soporte',
       descripcion: 'Pantalla parpadeando',
       estado: 'Resuelto',
-      fecha: '2025-05-20',
       prioridad: 'Baja',
+      fecha: '2025-05-20',
     },
   ]);
 
-  incidentes$ = this.incidentesSubject.asObservable(); // para componentes
+  incidentes$ = this.incidentesSubject.asObservable();
 
-  constructor() {}
-
-  getIncidentes(): Incidente[] {
-    return this.incidentesSubject.value;
-  }
-
-  getCantidad(): number {
-    return this.incidentesSubject.value.length;
-  }
-
-  agregar(inc: Incidente) {
-    const nuevos = [...this.incidentesSubject.value, inc];
-    this.incidentesSubject.next(nuevos);
-  }
-
-  eliminar(index: number) {
-    const nuevos = this.incidentesSubject.value.filter((_, i) => i !== index);
-    this.incidentesSubject.next(nuevos);
+  agregarIncidente(nuevo: Incidente) {
+    const actuales = this.incidentesSubject.value;
+    this.incidentesSubject.next([...actuales, nuevo]);
   }
 }

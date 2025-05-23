@@ -8,3 +8,12 @@ body {
   background-color: #0e1a2b;
   font-family: 'Segoe UI', sans-serif;
 }
+
+::ng-deep .snackbar-success {
+  background-color: #43a047;
+  color: #fff;
+  font-weight: 500;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
