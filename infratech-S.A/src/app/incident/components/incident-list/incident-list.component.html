@@ -1,0 +1,26 @@
+<h2>Lista de Incidentes</h2>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Prioridad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of incidentes">
+      <td>{{ i.tipo }}</td>
+      <td>{{ i.descripcion }}</td>
+      <td>{{ i.estado }}</td>
+      <td>{{ i.fecha }}</td>
+      <td>
+        <span class="etiqueta" [ngClass]="i.prioridad.toLowerCase()">
+          {{ i.prioridad }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

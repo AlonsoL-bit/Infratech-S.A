@@ -1,0 +1,17 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  margin-left: 60px;
+  flex: 1;
+  padding: 1rem;
+  background-color: #0e1a2b;
+  color: #e3f2fd;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.abierto ~ .main-content {
+  margin-left: 220px;
+}
