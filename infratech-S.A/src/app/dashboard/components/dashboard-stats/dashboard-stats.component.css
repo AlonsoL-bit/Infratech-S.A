@@ -1,0 +1,19 @@
+.dashboard-container {
+  background-color: #121c2a;
+  padding: 2rem;
+  border-radius: 10px;
+  color: #e3f2fd;
+}
+
+.chart-wrapper {
+  max-width: 400px;
+  margin: auto;
+}
+
+.alerta {
+  margin-top: 2rem;
+  background-color: #ff7043;
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+}

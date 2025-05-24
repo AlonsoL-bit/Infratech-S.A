@@ -21,7 +21,6 @@ export class IncidentFormComponent {
     fecha: new Date().toISOString().split('T')[0],
   };
 
-  // ✅ Inyección moderna compatible con standalone components
   incidentService = inject(IncidentService);
   snackBar = inject(MatSnackBar);
 

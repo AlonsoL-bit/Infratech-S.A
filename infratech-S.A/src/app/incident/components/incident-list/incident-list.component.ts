@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { IncidentService } from '../../services/incident.service';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IncidentService, Incidente } from '../../services/incident.service';
 
 @Component({
-  standalone: true,
   selector: 'app-incident-list',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './incident-list.component.html',
-  styleUrls: ['./incident-list.component.css'],
+  styleUrls: ['./incident-list.component.css']
 })
 export class IncidentListComponent implements OnInit {
-  incidentes: Incidente[] = [];
+  private incidentService = inject(IncidentService);
+  private route = inject(ActivatedRoute);
 
-  constructor(private incidentService: IncidentService) {}
+  incidentesFiltrados: any[] = [];
 
   ngOnInit(): void {
-    this.incidentService.incidentes$.subscribe(data => {
-    this.incidentes = data;
-  });
-
+    this.route.queryParams.subscribe(params => {
+      const estado = params['estado'];
+      this.incidentService.incidentes$.subscribe(incidentes => {
+        this.incidentesFiltrados = estado
+          ? incidentes.filter(i => i.estado === estado)
+          : incidentes;
+      });
+    });
   }
 }

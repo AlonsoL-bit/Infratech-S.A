@@ -1,1 +1,33 @@
-<p>dashboard-stats works!</p>
+<div class="dashboard-container">
+  <h2>📊 Estadísticas de Incidentes</h2>
+
+  <div class="chart-wrapper">
+    <canvas
+      baseChart
+      [data]="doughnutChartData"
+      [type]="'doughnut'"
+      (chartClick)="onChartClick($event)">
+    </canvas>
+  </div>
+
+  <div *ngIf="selectedEstado">
+    <h3>Incidentes con estado: {{ selectedEstado }}</h3>
+    <ul>
+      <li *ngFor="let i of incidentesFiltrados">
+        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }})
+      </li>
+    </ul>
+    <button mat-raised-button color="primary" (click)="verListaFiltrada()">
+    <mat-icon>search</mat-icon> Ver en lista
+</button>
+  </div>
+
+  <div *ngIf="incidentesVencidos.length > 0" class="alerta">
+    <h3>⚠️ Incidentes sin resolver hace más de 48h</h3>
+    <ul>
+      <li *ngFor="let i of incidentesVencidos">
+        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }})
+      </li>
+    </ul>
+  </div>
+</div>
