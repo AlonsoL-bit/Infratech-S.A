@@ -34,7 +34,15 @@
         <option value="Baja">Baja</option>
       </select>
     </label>
-
+    
+    <label>
+      Responsable:
+      <select [(ngModel)]="nuevoIncidente.responsable" name="responsable" required>
+        <option value="" disabled selected>Seleccionar técnico</option>
+        <option *ngFor="let t of tecnicos" [value]="t">{{ t }}</option>
+      </select>
+    </label>
+    
     <button type="submit" [disabled]="form.invalid">Registrar</button>
   </form>
 </div>

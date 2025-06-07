@@ -8,7 +8,10 @@ export interface Incidente {
   estado: string;
   prioridad: string;
   fecha: string;
+  responsable: string; 
+  fechaResolucion?: string;
 }
+
 
 @Injectable({
   providedIn: 'root',

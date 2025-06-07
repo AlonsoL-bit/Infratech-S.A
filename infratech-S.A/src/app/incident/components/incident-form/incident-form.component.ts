@@ -18,9 +18,11 @@ export class IncidentFormComponent {
     descripcion: '',
     estado: 'Nuevo',
     prioridad: 'Media',
+    responsable:'',
     fecha: new Date().toISOString().split('T')[0],
   };
 
+  tecnicos: string[] = ['Alonso Labbé', 'Benjamín Barraza', 'Ignacio Neira'];
   incidentService = inject(IncidentService);
   snackBar = inject(MatSnackBar);
 
@@ -40,6 +42,7 @@ export class IncidentFormComponent {
       descripcion: '',
       estado: 'Nuevo',
       prioridad: 'Media',
+      responsable: '',
       fecha: new Date().toISOString().split('T')[0],
     };
   }
