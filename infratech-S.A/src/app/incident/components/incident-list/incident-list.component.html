@@ -8,19 +8,27 @@
       <th>Estado</th>
       <th>Fecha</th>
       <th>Prioridad</th>
+      <th>Responsable</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let i of incidentesFiltrados">
       <td>{{ i.tipo }}</td>
       <td>{{ i.descripcion }}</td>
-      <td>{{ i.estado }}</td>
+      <td>
+        <select [(ngModel)]="i.estado" (change)="actualizarEstado(i)">
+          <option value="Nuevo">Nuevo</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Resuelto">Resuelto</option>
+        </select>
+      </td>
       <td>{{ i.fecha }}</td>
       <td>
         <span class="etiqueta" [ngClass]="i.prioridad.toLowerCase()">
           {{ i.prioridad }}
         </span>
       </td>
+      <td>{{ i.responsable }}</td>
     </tr>
   </tbody>
 </table>

@@ -17,7 +17,7 @@ export interface Incidente {
   providedIn: 'root',
 })
 export class IncidentService {
-  private incidentesSubject = new BehaviorSubject<Incidente[]>([
+  public incidentesSubject = new BehaviorSubject<Incidente[]>([
     
   ]);
 
