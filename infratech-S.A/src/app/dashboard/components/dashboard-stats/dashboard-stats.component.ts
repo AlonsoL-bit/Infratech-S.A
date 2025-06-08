@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './dashboard-stats.component.html',
   styleUrls: ['./dashboard-stats.component.css']
 })
+
 export class DashboardStatsComponent implements OnInit {
   incidentService = inject(IncidentService);
   router = inject(Router);
@@ -32,11 +33,35 @@ export class DashboardStatsComponent implements OnInit {
     }]
   };
 
+  prioridadesData: number[] = [0, 0, 0]; // Alta, Media, Baja
+
+  barChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: ['Alta', 'Media', 'Baja'],
+    datasets: [
+      {
+        label: 'Incidentes por Prioridad',
+        data: this.prioridadesData,
+        backgroundColor: ['#e53935', '#fdd835', '#43a047']
+      }
+    ]
+  };
+
+  contarPrioridades() {
+    const alta = this.incidentes.filter(i => i.prioridad === 'Alta').length;
+    const media = this.incidentes.filter(i => i.prioridad === 'Media').length;
+    const baja = this.incidentes.filter(i => i.prioridad === 'Baja').length;
+
+    this.prioridadesData = [alta, media, baja];
+    this.barChartData.datasets[0].data = this.prioridadesData;
+  }
+
+
   ngOnInit(): void {
     this.incidentService.incidentes$.subscribe((data) => {
       this.incidentes = data;
       this.contarEstados();
       this.filtrarVencidos();
+      this.contarPrioridades();
     });
   }
 

@@ -1,33 +1,35 @@
 <div class="dashboard-container">
   <h2>📊 Estadísticas de Incidentes</h2>
 
-  <div class="chart-wrapper">
-    <canvas
-      baseChart
-      [data]="doughnutChartData"
-      [type]="'doughnut'"
-      (chartClick)="onChartClick($event)">
-    </canvas>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <h3 class="chart-title">Por Estado</h3>
+      <canvas baseChart [data]="doughnutChartData" [type]="'doughnut'" (chartClick)="onChartClick($event)"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3 class="chart-title">Por Prioridad</h3>
+      <canvas baseChart [type]="'bar'" [data]="barChartData"></canvas>
+    </div>
   </div>
 
-  <div *ngIf="selectedEstado">
-    <h3>Incidentes con estado: {{ selectedEstado }}</h3>
+  <div *ngIf="selectedEstado" class="tarjeta-info">
+    <h3>🗂 Incidentes con estado: <strong>{{ selectedEstado }}</strong></h3>
     <ul>
       <li *ngFor="let i of incidentesFiltrados">
-        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }})
+        <strong>{{ i.tipo }}</strong> - {{ i.descripcion }} <small>({{ i.fecha | date: 'yyyy-MM-dd HH:mm' }})</small>
       </li>
     </ul>
     <button mat-raised-button color="primary" (click)="verListaFiltrada()">
-    <mat-icon>search</mat-icon> Ver en lista
-</button>
+      <mat-icon>search</mat-icon> Ver en lista
+    </button>
   </div>
 
   <div *ngIf="incidentesVencidos.length > 0" class="alerta">
     <h3>⚠️ Incidentes sin resolver hace más de 48h</h3>
     <ul>
       <li *ngFor="let i of incidentesVencidos">
-        
-        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }}) RESPONSABLE: {{i.responsable}}
+        <strong>{{ i.tipo }}</strong> - {{ i.descripcion }} <small>({{ i.fecha | date: 'yyyy-MM-dd HH:mm' }})</small> <span>RESPONSABLE: {{ i.responsable }}</span>
       </li>
     </ul>
   </div>
