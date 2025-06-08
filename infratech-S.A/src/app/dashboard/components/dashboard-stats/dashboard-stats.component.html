@@ -26,7 +26,8 @@
     <h3>⚠️ Incidentes sin resolver hace más de 48h</h3>
     <ul>
       <li *ngFor="let i of incidentesVencidos">
-        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }})
+        
+        {{ i.tipo }} - {{ i.descripcion }} ({{ i.fecha }}) RESPONSABLE: {{i.responsable}}
       </li>
     </ul>
   </div>

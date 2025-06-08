@@ -50,6 +50,35 @@ export class IncidentListComponent implements OnInit {
   }
   }
 
+  filtro = {
+    tipo: '',
+    estado: '',
+    prioridad: '',
+    responsable:''
+  };
+
+  tipoOpciones: string[] = [];
+  fechaDesde: string = '';
+  fechaHasta: string = '';
+  responsablesOpciones: string[] = [];
+
+
+  get incidentesFiltradosFinal() {
+  return this.incidentesFiltrados.filter(i => {
+    const fechaValidaDesde = !this.fechaDesde || i.fecha >= this.fechaDesde;
+    const fechaValidaHasta = !this.fechaHasta || i.fecha <= this.fechaHasta;
+
+    return (
+      (!this.filtro.responsable || i.responsable === this.filtro.responsable) &&
+      (!this.filtro.tipo || i.tipo === this.filtro.tipo) &&
+      (!this.filtro.estado || i.estado === this.filtro.estado) &&
+      (!this.filtro.prioridad || i.prioridad === this.filtro.prioridad) &&
+      fechaValidaDesde &&
+      fechaValidaHasta
+    );
+  });
+}
+
 
 
   ngOnInit(): void {
@@ -59,7 +88,11 @@ export class IncidentListComponent implements OnInit {
         this.incidentesFiltrados = estado
           ? incidentes.filter(i => i.estado === estado)
           : incidentes;
+
+        this.tipoOpciones = [...new Set(incidentes.map(i => i.tipo))];
+        this.responsablesOpciones = [...new Set(incidentes.map(i => i.responsable))];
+
+        });
       });
-    });
+    }
   }
-}
