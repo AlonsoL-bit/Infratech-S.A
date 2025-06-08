@@ -1,0 +1,90 @@
+<h2>Lista de Incidentes</h2>
+
+<div class="filtros-container">
+  <label>
+  Tipo:
+  <select [(ngModel)]="filtro.tipo">
+    <option value="">Todos</option>
+    <option *ngFor="let t of tipoOpciones" [value]="t">{{ t }}</option>
+  </select>
+</label>
+
+
+  <label>
+    Estado:
+    <select [(ngModel)]="filtro.estado">
+      <option value="">Todos</option>
+      <option value="Nuevo">Nuevo</option>
+      <option value="En proceso">En proceso</option>
+      <option value="Resuelto">Resuelto</option>
+    </select>
+  </label>
+
+  <label>
+    Prioridad:
+    <select [(ngModel)]="filtro.prioridad">
+      <option value="">Todas</option>
+      <option value="Alta">Alta</option>
+      <option value="Media">Media</option>
+      <option value="Baja">Baja</option>
+    </select>
+  </label>
+  
+  <label>
+    Responsable:
+    <select [(ngModel)]="filtro.responsable">
+      <option value="">Todos</option>
+      <option *ngFor="let r of responsablesOpciones" [value]="r">{{ r }}</option>
+    </select>
+  </label>
+
+
+  <label>
+    Desde:
+    <input type="date" [(ngModel)]="fechaDesde" />
+  </label>
+
+  <label>
+    Hasta:
+    <input type="date" [(ngModel)]="fechaHasta" />
+  </label>
+
+</div>
+
+<table class="tabla">
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Descripción</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Tiempo de resolución</th>
+      <th>Prioridad</th>
+      <th>Responsable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of incidentesFiltradosFinal">
+      <td>{{ i.tipo }}</td>
+      <td>{{ i.descripcion }}</td>
+      <td>
+        <select [(ngModel)]="i.estado" (change)="actualizarEstado(i)">
+          <option value="Nuevo">Nuevo</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Resuelto">Resuelto</option>
+        </select>
+      </td>
+      <td>{{ i.fecha | date: 'yyyy-MM-dd HH:mm' }}</td>
+      <td>
+        {{ i.estado === 'Resuelto' ? getTiempoResolucion(i) : '—' }}
+      </td>
+
+      <td>
+        <span class="etiqueta" [ngClass]="i.prioridad.toLowerCase()">
+          {{ i.prioridad }}
+        </span>
+      </td>
+      <td>{{ i.responsable }}</td>
+    </tr>
+  </tbody>
+</table>

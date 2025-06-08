@@ -1,0 +1,35 @@
+<nav class="sidebar" (mouseenter)="visible = true" (mouseleave)="visible = false" [class.abierto]="visible">
+  <h3 *ngIf="visible">InfraTech</h3>
+  <ul>
+    <li>
+      <a routerLink="/">
+        <span class="icon">🏠</span>
+        <span class="label" *ngIf="visible"> Inicio</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/incident">
+        <span class="icon">📄</span>
+         <span *ngIf="visible"> Incidentes  [{{ cantidad }}]</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/registrar">
+        <span class="icon">➕</span>
+        <span class="label" *ngIf="visible"> Registrar</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/dashboard">
+        <span class="icon">📊</span>
+        <span class="label" *ngIf="visible"> Estadísticas</span>
+      </a>
+    </li>
+    <li class="pdf-sidebar" (click)="descargarInformePDF()">
+      <span class="icon">📄</span>
+      <span class="label">Informe PDF</span>
+    </li>
+
+  </ul>
+  
+</nav>
