@@ -12,6 +12,7 @@ import { Incidente } from '../../services/incident.service';
   templateUrl: './incident-list.component.html',
   styleUrls: ['./incident-list.component.css']
 })
+
 export class IncidentListComponent implements OnInit {
   private incidentService = inject(IncidentService);
   private route = inject(ActivatedRoute);
@@ -31,6 +32,24 @@ export class IncidentListComponent implements OnInit {
 
   this.incidentService.incidentesSubject.next(incidentes);
 }
+
+  getTiempoResolucion(incidente: Incidente): string {
+  if (!incidente.fecha || !incidente.fechaResolucion) return '—';
+
+  const inicio = new Date(incidente.fecha);
+  const fin = new Date(incidente.fechaResolucion);
+  const diffMs = fin.getTime() - inicio.getTime();
+
+  const diffHoras = diffMs / (1000 * 60 * 60);
+
+  if (diffHoras < 24) {
+    return `${Math.floor(diffHoras)} hora(s)`;
+  } else {
+    const dias = Math.floor(diffHoras / 24);
+    return `${dias} día(s)`;
+  }
+  }
+
 
 
   ngOnInit(): void {

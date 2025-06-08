@@ -19,7 +19,7 @@ export class IncidentFormComponent {
     estado: 'Nuevo',
     prioridad: 'Media',
     responsable:'',
-    fecha: new Date().toISOString().split('T')[0],
+    fecha: new Date().toISOString().slice(0,16),
   };
 
   tecnicos: string[] = ['Alonso Labbé', 'Benjamín Barraza', 'Ignacio Neira'];

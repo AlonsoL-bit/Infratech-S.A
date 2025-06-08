@@ -7,6 +7,7 @@
       <th>Descripción</th>
       <th>Estado</th>
       <th>Fecha</th>
+      <th>Tiempo de resolución</th>
       <th>Prioridad</th>
       <th>Responsable</th>
     </tr>
@@ -22,7 +23,11 @@
           <option value="Resuelto">Resuelto</option>
         </select>
       </td>
-      <td>{{ i.fecha }}</td>
+      <td>{{ i.fecha | date: 'yyyy-MM-dd HH:mm' }}</td>
+      <td>
+        {{ i.estado === 'Resuelto' ? getTiempoResolucion(i) : '—' }}
+      </td>
+
       <td>
         <span class="etiqueta" [ngClass]="i.prioridad.toLowerCase()">
           {{ i.prioridad }}
