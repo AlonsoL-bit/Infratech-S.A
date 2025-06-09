@@ -72,7 +72,7 @@ Then open your browser at http://localhost:8080/.
 
 ## Git and version control
 
-Repository hosted on GitHub: [your repo URL here]
+Repository hosted on GitHub: [https://github.com/AlonsoL-bit/Infratech-S.A]
 
 Development done in feature/* branches
 
