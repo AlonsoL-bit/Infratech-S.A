@@ -54,6 +54,41 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## Docker
 
+To build the Docker image, run:
+
+```bash
+docker build -t infratech-app .
+```
+
+To run the Docker container:
+
+```bash
+docker run -p 8080:80 infratech-app
+```
+
+Then open your browser at http://localhost:8080/.
+
+## Git and version control
+
+Repository hosted on GitHub: [your repo URL here]
+
+Development done in feature/* branches
+
+At least 10 meaningful commits made
+
+.gitignore configured to exclude dist/ and node_modules
+
+## Project structure
+
+/src/app/ — Angular source code, modularized
+
+/dist/ — Compiled build files (not committed)
+
+Dockerfile — Production container configuration
+
+.gitignore — Git ignore settings
+
+README.md — Project documentation
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
