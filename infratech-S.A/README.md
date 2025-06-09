@@ -1,5 +1,35 @@
 # InfratechSA
 
+## 🐳 1. Clona el repositorio
+
+```bash
+git clone https://github.com/AlonsoL-bit/Infratech-S.A.git
+```
+
+## 📂 2. Entra al directorio del proyecto
+
+```bash
+cd Infratech-S.A/infratech-S.A
+```
+
+## 🛠️ 3. Construye la imagen Docker
+
+```bash
+docker build -t infratech-app .
+```
+
+## 🚀 4. Corre el contenedor
+
+```bash
+docker run -p 8080:80 infratech-app
+```
+
+## 🌐 5. Abre la aplicación en el navegador
+
+```bash
+http://localhost:8080/
+```
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
 
 ## Development server
