@@ -2,37 +2,37 @@
 
 Instrucciones para ejecución 
 
-##1. Habré el Docker 
+## 1. Habré el Docker 
 
 https://labs.play-with-docker.com/ 
 
-##2. inicia una instacia 
+## 2. inicia una instacia 
 
 Crea una nueva instancia 
 
-##3. Clona el repositorio
+## 3. Clona el repositorio
 
 ```bash
 git clone https://github.com/AlonsoL-bit/Infratech-S.A.git 
 ```
 
-##4. Entra al directorio del proyecto 
+## 4. Entra al directorio del proyecto 
 ```bash
 cd Infratech-S.A/infratech-S.A 
 ```
 
-##5. Construye la imagen Docker
+## 5. Construye la imagen Docker
 
 ```bash
 docker build -t infratech . 
 ```
 
-##6. Corre el contenedor 
+## 6. Corre el contenedor 
 ```bash
 docker run -d -p 80:80 infratech 
 ```
 
-##7. Abre la aplicación en el navegador 
+## 7. Abre la aplicación en el navegador 
 
 En Docker en OPEN PORT una vez lo presiones saldrá una ventana emergente en la cual escribirás el numero 80 y eso es todo podrás ver la aplicación web 
 
