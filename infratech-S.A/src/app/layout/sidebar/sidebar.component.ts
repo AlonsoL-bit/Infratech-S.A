@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { IncidentService } from '../../incident/services/incident.service';
 import { generarPDF } from '../../utils/pdf-utils';
-
+import { Incidente } from '../../incident/interfaces/incidente.model'; 
 
 @Component({
   selector: 'app-sidebar',
@@ -12,22 +12,20 @@ import { generarPDF } from '../../utils/pdf-utils';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-
-
 export class SidebarComponent {
   visible = false;
   cantidad = 0;
 
-
-  descargarInformePDF() {
-    this.incidentService.incidentes$.subscribe(incidentes => {
-      generarPDF('Informe completo de incidentes', incidentes);
-    }).unsubscribe(); 
-  }
-  
   constructor(private incidentService: IncidentService) {
-    this.incidentService.incidentes$.subscribe((data) => {
+    this.incidentService.getIncidentes().subscribe((data: Incidente[]) => {
       this.cantidad = data.length;
     });
   }
+
+  descargarInformePDF() {
+    this.incidentService.getIncidentes().subscribe((incidentes: Incidente[]) => {
+      generarPDF('Informe completo de incidentes', incidentes);
+    });
+  }
 }
+

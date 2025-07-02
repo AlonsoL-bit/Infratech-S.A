@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
-export interface Incidente {
-  tipo: string;
-  area: string;
-  descripcion: string;
-  estado: string;
-  prioridad: string;
-  fecha: string;
-  responsable: string; 
-  fechaResolucion?: string;
-}
-
+import { HttpClient } from '@angular/common/http';
+import { Incidente } from '../interfaces/incidente.model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class IncidentService {
-  public incidentesSubject = new BehaviorSubject<Incidente[]>([
-    
-  ]);
+  private baseUrl = 'http://127.0.0.1:8000/api/incidentes/';
 
-  incidentes$ = this.incidentesSubject.asObservable();
+  constructor(private http: HttpClient) {}
 
-  agregarIncidente(nuevo: Incidente) {
-    const actuales = this.incidentesSubject.value;
-    this.incidentesSubject.next([...actuales, nuevo]);
+  getIncidentes() {
+    return this.http.get<Incidente[]>(this.baseUrl);
+  }
+
+  agregarIncidente(incidente: Incidente) {
+    return this.http.post<Incidente>(this.baseUrl, incidente);
+  }
+
+  actualizarIncidente(id: number, incidente: Incidente) {
+    return this.http.put<Incidente>(`${this.baseUrl}${id}/`, incidente);
+  }
+
+  eliminarIncidente(id: number) {
+    return this.http.delete(`${this.baseUrl}${id}/`);
   }
 }
+
+
+

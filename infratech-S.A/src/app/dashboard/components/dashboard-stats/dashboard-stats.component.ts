@@ -6,6 +6,7 @@ import { ChartConfiguration } from 'chart.js';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Incidente } from '../../../incident/interfaces/incidente.model';
 
 @Component({
   selector: 'app-dashboard-stats',
@@ -14,16 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './dashboard-stats.component.html',
   styleUrls: ['./dashboard-stats.component.css']
 })
-
 export class DashboardStatsComponent implements OnInit {
   incidentService = inject(IncidentService);
   router = inject(Router);
-  incidentes: any[] = [];
-  estadosData: number[] = [0, 0, 0]; // Nuevo, En proceso, Resuelto
-  incidentesVencidos: any[] = [];
+  incidentes: Incidente[] = [];
+  estadosData: number[] = [0, 0, 0];
+  incidentesVencidos: Incidente[] = [];
 
   selectedEstado: string | null = null;
-  incidentesFiltrados: any[] = [];
+  incidentesFiltrados: Incidente[] = [];
 
   doughnutChartData: ChartConfiguration<'doughnut'>['data'] = {
     labels: ['Nuevo', 'En proceso', 'Resuelto'] as string[],
@@ -33,7 +33,7 @@ export class DashboardStatsComponent implements OnInit {
     }]
   };
 
-  prioridadesData: number[] = [0, 0, 0]; // Alta, Media, Baja
+  prioridadesData: number[] = [0, 0, 0];
 
   barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: ['Alta', 'Media', 'Baja'],
@@ -55,9 +55,8 @@ export class DashboardStatsComponent implements OnInit {
     this.barChartData.datasets[0].data = this.prioridadesData;
   }
 
-
   ngOnInit(): void {
-    this.incidentService.incidentes$.subscribe((data) => {
+    this.incidentService.getIncidentes().subscribe((data: Incidente[]) => {
       this.incidentes = data;
       this.contarEstados();
       this.filtrarVencidos();

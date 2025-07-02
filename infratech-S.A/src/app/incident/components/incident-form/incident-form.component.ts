@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IncidentService } from '../../services/incident.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Incidente } from '../../../incident/interfaces/incidente.model';
 
 @Component({
   selector: 'app-incident-form',
@@ -12,14 +13,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./incident-form.component.css'],
 })
 export class IncidentFormComponent {
-  nuevoIncidente = {
+  nuevoIncidente: Incidente = {
     tipo: '',
     area: '',
     descripcion: '',
     estado: 'Nuevo',
     prioridad: 'Media',
-    responsable:'',
-    fecha: new Date().toISOString().slice(0,16),
+    responsable: '',
+    fecha: new Date().toISOString(), // ✅ Completa la fecha
   };
 
   tecnicos: string[] = ['Alonso Labbé', 'Benjamín Barraza', 'Ignacio Neira'];
@@ -27,23 +28,34 @@ export class IncidentFormComponent {
   snackBar = inject(MatSnackBar);
 
   registrarIncidente() {
-    this.incidentService.agregarIncidente({ ...this.nuevoIncidente });
+    this.incidentService.agregarIncidente({ ...this.nuevoIncidente }).subscribe({
+      next: () => {
+        this.snackBar.open('✅ Incidente registrado correctamente.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: 'snackbar-success',
+        });
 
-    this.snackBar.open('✅ Incidente registrado correctamente.', 'Cerrar', {
-      duration: 4000,
-      horizontalPosition: 'right',
-      verticalPosition: 'top',
-      panelClass: 'snackbar-success',
+        // Reiniciar el formulario
+        this.nuevoIncidente = {
+          tipo: '',
+          area: '',
+          descripcion: '',
+          estado: 'Nuevo',
+          prioridad: 'Media',
+          responsable: '',
+          fecha: new Date().toISOString(),
+        };
+      },
+      error: () => {
+        this.snackBar.open('❌ Error al registrar el incidente.', 'Cerrar', {
+          duration: 4000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: 'snackbar-error',
+        });
+      }
     });
-
-    this.nuevoIncidente = {
-      tipo: '',
-      area: '',
-      descripcion: '',
-      estado: 'Nuevo',
-      prioridad: 'Media',
-      responsable: '',
-      fecha: new Date().toISOString().split('T')[0],
-    };
   }
 }
