@@ -18,6 +18,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copia el resto del código
 COPY . .
 
+RUN python manage.py collectstatic --noinput
+
 # Expone el puerto que usará gunicorn
 EXPOSE 8000
 
